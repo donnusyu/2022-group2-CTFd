@@ -25,4 +25,4 @@ jobs:
       - name: Secret scanning
         uses: max/secret-scan@master
         with:
-          exclude_path: '/exclude.txt'
+          exclude_path: './exclude.txt'
