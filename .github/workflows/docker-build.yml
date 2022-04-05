@@ -1,8 +1,8 @@
 name: Docker build image on release
 
-on:
-  release:
-    types: [published]
+#on:
+  #release:
+    #types: [published]
 
 jobs:
   docker:
