@@ -28,6 +28,9 @@ jobs:
           mkdir -p logs/
           echo 'CTFd/themes/' >> logs/exclude.txt
           echo 'CHANGELOG.md' >> logs/exclude.txt
+          echo 'CTFd/utils/security/sanitize.py' >> logs/exclude.txt
+          echo 'tests/users/test_auth.py' >> logs/exclude.txt
+          echo 'tests/utils/test_email.py' >> logs/exclude.txt
       -
         name: Find secrets
         uses: max/secret-scan@master
