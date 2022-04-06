@@ -26,9 +26,7 @@ jobs:
         name: Exclude paths
         run: |
           mkdir -p logs/
-          echo 'CTFd/themes/core/assets/js/utils.js' >> logs/exclude.txt
-          echo 'CTFd/themes/admin/static/js/vendor.bundle.min.js' >> logs/exclude.txt
-          echo 'CTFd/themes/admin/static/js/core.dev.js' >> logs/exclude.txt
+          echo 'CTFd/themes/' >> logs/exclude.txt
           echo 'CHANGELOG.md' >> logs/exclude.txt
       -
         name: Find secrets
