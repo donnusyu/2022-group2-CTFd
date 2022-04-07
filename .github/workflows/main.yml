@@ -31,6 +31,10 @@ jobs:
           echo 'CTFd/utils/security/sanitize.py' >> logs/exclude.txt
           echo 'tests/users/test_auth.py' >> logs/exclude.txt
           echo 'tests/utils/test_email.py' >> logs/exclude.txt
+          echo 'tests/api/v1/test_files.py' >> logs/exclude.txt
+          echo 'tests/utils/test_encoding.py' >> logs/exclude.txt
+          echo 'tests/utils/test_passwords.py' >> logs/exclude.txt
+          echo 'yarn.lock' >> logs/exclude.txt
       -
         name: Find secrets
         uses: max/secret-scan@master
