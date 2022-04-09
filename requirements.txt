@@ -14,7 +14,7 @@ attrs==20.3.0
     # via jsonschema
 bcrypt==3.1.7
     # via -r requirements.in
-boto3==1.13.9
+boto3==1.21.37
     # via -r requirements.in
 botocore==1.16.26
     # via
