@@ -40,8 +40,8 @@ def test_s3_sync():
     app = create_ctfd()
     with app.app_context():
         app.config["UPLOAD_PROVIDER"] = "s3"
-        app.config["AWS_ACCESS_KEY_ID"] = ${{ secrets.AWS_ACCESS_KEY_ID }}
-        app.config["AWS_SECRET_ACCESS_KEY"] = ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        app.config["AWS_ACCESS_KEY_ID"] = os.environ['AWS_ACCESS_KEY_ID']
+        app.config["AWS_SECRET_ACCESS_KEY"] = os.environ['AWS_SECRET_ACCESS_KEY']
         app.config["AWS_S3_BUCKET"] = "bucket"
 
         uploader = S3Uploader()
