@@ -50,8 +50,8 @@ jobs:
             sudo rm -f /etc/boto.cfg
             make test
         env:
-            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            AWS_ACCESS_KEY_ID: AKIAIOSFODNN7EXAMPLE
+            AWS_SECRET_ACCESS_KEY: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
             TESTING_DATABASE_URL: mysql+pymysql://root:password@localhost:${{ job.services.mysql.ports[3306] }}/ctfd
 
       - name: Codecov
