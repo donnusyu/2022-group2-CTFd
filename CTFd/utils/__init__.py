@@ -1,3 +1,4 @@
+import json
 from enum import Enum
 
 import cmarkgfm
@@ -24,6 +25,12 @@ def markdown(md):
 def get_app_config(key, default=None):
     value = app.config.get(key, default)
     return value
+
+
+@cache.memoize()
+def _get_asset_json(path):
+    with open(path) as f:
+        return json.loads(f.read())
 
 
 @cache.memoize()
@@ -74,3 +81,14 @@ def set_config(key, value):
 
     cache.delete_memoized(_get_config, key)
     return config
+
+
+def import_in_progress():
+    import_status = cache.get(key="import_status")
+    import_error = cache.get(key="import_error")
+    if import_error:
+        return False
+    elif import_status:
+        return True
+    else:
+        return False
