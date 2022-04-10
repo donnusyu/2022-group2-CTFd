@@ -26,6 +26,6 @@ marshmallow==3.15.0
 pydantic==1.9.0
 WTForms==3.0.1
 python-geoacumen-city==2022.3.15
-maxminddb==2.2.0
+maxminddb==1.5.4
 tenacity==8.0.1
 pybluemonday==0.0.9

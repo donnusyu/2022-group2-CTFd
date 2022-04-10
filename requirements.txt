@@ -98,7 +98,7 @@ marshmallow==3.15.0
     #   marshmallow-sqlalchemy
 marshmallow-sqlalchemy==0.28.0
     # via -r requirements.in
-maxminddb==2.2.0
+maxminddb==1.5.4
     # via
     #   -r requirements.in
     #   python-geoacumen-city
