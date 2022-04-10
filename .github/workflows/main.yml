@@ -3,10 +3,13 @@ name: CTFd Main CI
 
 on:
   push:
-    branches: [sub-test]
+    branches: [sub]
+
+env:
+  DEP_PATH: requirements.txt
     
 jobs:
-  build:
+  Build:
     runs-on: ubuntu-latest
     steps:
       - 
@@ -16,7 +19,7 @@ jobs:
         name: Build docker-compose
         run: docker-compose -f docker-compose.yml up --build -d
 
-  secret-scan:
+  SecretScan:
     runs-on: ubuntu-latest
     steps:
       - 
@@ -41,37 +44,36 @@ jobs:
         with:
           exclude_path: 'logs/exclude.txt'
 
-  sca:
+  PythonSafety:
     runs-on: ubuntu-latest
     steps:
       - 
         name: Checkout
-        uses: actions/checkout@v2   
+        uses: actions/checkout@master  
       - 
-        name: Create logs directory
-        run: |
-          mkdir -p logs/
+        name: Install Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: "3.7"
       - 
-        name: Python Safety
-        run: |
+        name: Install Safety    
+        run:
           pip install safety
-          safety check -r requirements.txt > logs/safety.txt
       - 
-        name: Pyraider
-        run: |
-          pip install pyraider
-          pyraider check -f requirements.txt > logs/pyraider.txt
+        name: Create logs file
+        run: mkdir -p logs/
       - 
-        name: Upload python safety check results
+        name: SCA Analysis
+        run: safety check -r requirements.txt --full-report -i 40459 -i 42194 > logs/safety-logs.txt
+      - 
+        name: Upload logs  
         uses: actions/upload-artifact@v2
         with:
           name: logs
-          path: |
-            logs/safety.txt
-            logs/pyraider.txt
-  
-  sast:
-    needs: [build, sca]
+          path: logs/safety-logs.txt
+
+sast:
+    needs: [build, PythonSafety]
     runs-on: ubuntu-latest
 
     steps:
@@ -89,4 +91,3 @@ jobs:
         with:
           name: logs
           path: logs/output.json
-  
