@@ -29,7 +29,7 @@ cffi==1.15.0
     #   pybluemonday
 chardet==3.0.4
     # via requests
-click==7.1.2
+click==8.1.2
     # via flask
 cmarkgfm==0.8.0
     # via -r requirements.in
