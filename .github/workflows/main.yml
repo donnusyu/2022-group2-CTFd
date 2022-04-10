@@ -44,6 +44,26 @@ jobs:
         with:
           exclude_path: 'logs/exclude.txt'
 
+  ImageScan:
+    #needs: [test, sast]
+    runs-on: ubuntu-latest
+ 
+    steps:
+      - 
+        name: Run Dockle
+        uses: erzz/dockle-action@v1.1.1
+        with:
+          image: nginx:1.17
+          report-format: json
+          report-name: dockle-report-nginx
+      - 
+        name: Upload Report
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: Dockle Report
+          path: dockle-report-nginx.json
+
   # PythonSafety:
   #   runs-on: ubuntu-latest
   #   steps:
