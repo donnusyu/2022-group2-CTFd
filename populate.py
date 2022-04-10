@@ -149,7 +149,8 @@ if __name__ == "__main__":
         for x in range(AMT_CHALS_WITH_FILES):
             chal = random.randint(1, CHAL_AMOUNT)
             filename = gen_file()
-            md5hash = hashlib.md5(filename.encode("utf-8")).hexdigest()
+            #md5hash = hashlib.md5(filename.encode("utf-8")).hexdigest()
+            md5hash = hashlib.md5(filename.encode("utf-8"),usedforsecurity=False).hexdigest()
             chal_file = ChallengeFiles(
                 challenge_id=chal, location=md5hash + "/" + filename
             )
