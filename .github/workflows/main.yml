@@ -51,31 +51,23 @@ jobs:
         name: Checkout
         uses: actions/checkout@master  
       - 
-        name: Python Safety
-        uses: aufdenpunkt/python-safety-check@master
-        with: 
-          safety_args: '-o safety-report.txt'
-          scan_requirements_file_only: 'true'
-      -
+        name: Install Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: "3.6"
+      - 
+        name: Install Safety    
+        run:
+          pip install safety
+      - 
+        name: Create logs file
+        run: mkdir -p logs/
+      - 
+        name: SCA Analysis
+        run: safety check -r requirements.txt > logs/safety-logs.txt
+      - 
         name: Upload logs  
         uses: actions/upload-artifact@v2
         with:
-          name: safety-report
-          path: safety-report.txt
-
-  Pyraider:
-    runs-on: ubuntu-latest
-    steps:
-      - 
-        name: Pyraider
-        run: |
-          pip install pyraider
-          pyraider check -f requirements.txt > logs/pyraider.txt
-      - 
-        name: Upload python safety check results
-        uses: actions/upload-artifact@v2
-        with:
           name: logs
-          path: |
-            logs/safety.txt
-            logs/pyraider.txt
+          path: logs/safety-logs.txt
