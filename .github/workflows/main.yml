@@ -61,7 +61,7 @@ jobs:
         uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: Dockle Report for Nginx
+          name: Dockle Report
           path: dockle-report-nginx.json
       - 
         name: Dockle for MariaDB
@@ -75,7 +75,7 @@ jobs:
         uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: Dockle Report for MariaDB
+          name: Dockle Report
           path: dockle-report-mariadb.json
       - 
         name: Dockle for Redis
@@ -89,7 +89,7 @@ jobs:
         uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: Dockle Report for Redis
+          name: Dockle Report
           path: dockle-report-redis.json
 
   # PythonSafety:
