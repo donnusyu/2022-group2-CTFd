@@ -64,7 +64,7 @@ jobs:
         run: mkdir -p logs/
       - 
         name: SCA Analysis
-        run: safety check -r requirements.txt > logs/safety-logs.txt
+        run: safety check -r requirements.txt --full-report -i 40459 -i 42194 > logs/safety-logs.txt
       - 
         name: Upload logs  
         uses: actions/upload-artifact@v2
