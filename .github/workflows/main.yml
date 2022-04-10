@@ -16,7 +16,7 @@ jobs:
         name: Build docker-compose
         run: docker-compose -f docker-compose.yml up --build -d
 
-  Secret Scan:
+  SecretScan:
     runs-on: ubuntu-latest
     steps:
       - 
@@ -41,7 +41,7 @@ jobs:
         with:
           exclude_path: 'logs/exclude.txt'
 
-  Python Safety Check:
+  PythonSafety:
     runs-on: ubuntu-latest
     steps:
       - 
