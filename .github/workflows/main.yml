@@ -6,7 +6,7 @@ on:
     branches: [sub]
     
 jobs:
-  build:
+  Build:
     runs-on: ubuntu-latest
     steps:
       - 
@@ -16,7 +16,7 @@ jobs:
         name: Build docker-compose
         run: docker-compose -f docker-compose.yml up --build -d
 
-  secret-scan:
+  Secret Scan:
     runs-on: ubuntu-latest
     steps:
       - 
@@ -41,21 +41,25 @@ jobs:
         with:
           exclude_path: 'logs/exclude.txt'
 
-  sca:
+  Python Safety Check:
     runs-on: ubuntu-latest
     steps:
       - 
         name: Checkout
-        uses: actions/checkout@v2   
+        uses: actions/checkout@master  
       - 
         name: Create logs directory
         run: |
           mkdir -p logs/
       - 
         name: Python Safety
-        run: |
-          pip install safety
-          safety check -r requirements.txt > logs/safety.txt
+        uses: aufdenpunkt/python-safety-check@master
+        with: 
+          safety_args: '-o logs/safety-report.json'
+
+  Pyraider:
+    runs-on: ubuntu-latest
+    steps:
       - 
         name: Pyraider
         run: |
