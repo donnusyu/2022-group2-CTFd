@@ -3,7 +3,7 @@ name: CTFd Main CI
 
 on:
   push:
-    branches: [sub]
+    branches: [master, sub]
 
 env:
   DEP_PATH: requirements.txt
@@ -72,22 +72,22 @@ jobs:
           name: logs
           path: logs/safety-logs.txt
           
-  sast:
+  BanditCheck:
     needs: [Build, PythonSafety]
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v2
-
-      - run: |
+      - 
+        uses: actions/checkout@v2
+      - 
+        run: |
           mkdir -p logs/ 
-
-      - uses: jpetrucciani/bandit-check@master
+      - 
+        uses: jpetrucciani/bandit-check@master
         with:
           path: '.'
           bandit_flags: '-lll -o logs/output.json -f json'
-
-      - uses: actions/upload-artifact@v2
+      - 
+        uses: actions/upload-artifact@v2
         with:
           name: logs
           path: logs/output.json
