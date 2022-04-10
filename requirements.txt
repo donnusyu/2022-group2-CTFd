@@ -70,7 +70,7 @@ idna==2.10
     # via requests
 importlib-metadata==4.11.1
     # via jsonschema
-itsdangerous==1.1.0
+itsdangerous==2.1.2
     # via
     #   -r requirements.in
     #   flask
