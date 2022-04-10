@@ -51,15 +51,17 @@ jobs:
         name: Checkout
         uses: actions/checkout@master  
       - 
-        name: Create logs directory
-        run: |
-          mkdir -p logs/
-      - 
         name: Python Safety
         uses: aufdenpunkt/python-safety-check@master
         with: 
-          safety_args: '-o logs/safety-report.json'
+          safety_args: '-o safety-report.txt'
           scan_requirements_file_only: 'true'
+      -
+        name: Upload logs  
+        uses: actions/upload-artifact@v2
+        with:
+          name: safety-report
+          path: safety-report.txt
 
   Pyraider:
     runs-on: ubuntu-latest
