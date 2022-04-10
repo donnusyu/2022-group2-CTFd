@@ -4,6 +4,9 @@ name: CTFd Main CI
 on:
   push:
     branches: [sub]
+
+env:
+  DEP_PATH: requirements.txt
     
 jobs:
   Build:
@@ -57,8 +60,6 @@ jobs:
         with: 
           safety_args: '-o logs/safety-report.json'
           scan_requirements_file_only: 'true'
-          env:
-            DEP_PATH: /requirements.txt
 
   Pyraider:
     runs-on: ubuntu-latest
