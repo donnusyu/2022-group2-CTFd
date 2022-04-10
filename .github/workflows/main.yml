@@ -50,19 +50,33 @@ jobs:
  
     steps:
       - 
-        name: Run Dockle
+        name: Dockle for Nginx
         uses: erzz/dockle-action@v1.1.1
         with:
           image: nginx:1.17
           report-format: json
           report-name: dockle-report-nginx
       - 
+        name: Dockle for MariaDB
+        uses: erzz/dockle-action@v1.1.1
+        with:
+          image: mariadb:10.4.12
+          report-format: json
+          report-name: dockle-report-mariadb
+      - 
+        name: Dockle for Redis
+        uses: erzz/dockle-action@v1.1.1
+        with:
+          image: redis:4
+          report-format: json
+          report-name: dockle-report-redis      
+      - 
         name: Upload Report
         uses: actions/upload-artifact@v3
         if: always()
         with:
           name: Dockle Report
-          path: dockle-report-nginx.json
+          path: dockle-report.json
 
   # PythonSafety:
   #   runs-on: ubuntu-latest
