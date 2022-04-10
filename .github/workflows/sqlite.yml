@@ -1,7 +1,9 @@
 ---
 name: CTFd SQLite CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [sub]
 
 jobs:
   build:
@@ -34,7 +36,7 @@ jobs:
         env:
             AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
             AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            TESTING_DATABASE_URL: mysql+pymysql://root:password@localhost:${{ job.services.mysql.ports[3306] }}/ctfd
+            TESTING_DATABASE_URL: 'sqlite://'
 
       - name: Codecov
         uses: codecov/codecov-action@v1.0.11

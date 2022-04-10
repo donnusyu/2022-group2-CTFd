@@ -1,7 +1,9 @@
 ---
 name: CTFd MySQL CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [sub]
 
 jobs:
   build:
