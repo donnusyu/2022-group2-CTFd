@@ -56,6 +56,9 @@ jobs:
         uses: aufdenpunkt/python-safety-check@master
         with: 
           safety_args: '-o logs/safety-report.json'
+          scan_requirements_file_only: 'true'
+          env:
+            DEP_PATH: /requirements.txt
 
   Pyraider:
     runs-on: ubuntu-latest
