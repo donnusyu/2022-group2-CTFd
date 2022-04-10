@@ -57,12 +57,26 @@ jobs:
           report-format: json
           report-name: dockle-report-nginx
       - 
+        name: Upload Report
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: Dockle Report for Nginx
+          path: dockle-report-nginx.json
+      - 
         name: Dockle for MariaDB
         uses: erzz/dockle-action@v1.1.1
         with:
           image: mariadb:10.4.12
           report-format: json
           report-name: dockle-report-mariadb
+      - 
+        name: Upload Report
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: Dockle Report for MariaDB
+          path: dockle-report-mariadb.json
       - 
         name: Dockle for Redis
         uses: erzz/dockle-action@v1.1.1
@@ -75,8 +89,8 @@ jobs:
         uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: Dockle Report
-          path: dockle-report.json
+          name: Dockle Report for Redis
+          path: dockle-report-redis.json
 
   # PythonSafety:
   #   runs-on: ubuntu-latest
