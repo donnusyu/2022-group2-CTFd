@@ -3,7 +3,7 @@ name: CTFd Main CI
 
 on:
   push:
-    branches: [sub]
+    branches: [sub-DY]
 
 env:
   DEP_PATH: requirements.txt
@@ -44,30 +44,30 @@ jobs:
         with:
           exclude_path: 'logs/exclude.txt'
 
-  PythonSafety:
-    runs-on: ubuntu-latest
-    steps:
-      - 
-        name: Checkout
-        uses: actions/checkout@master  
-      - 
-        name: Install Python
-        uses: actions/setup-python@v1
-        with:
-          python-version: "3.7"
-      - 
-        name: Install Safety    
-        run:
-          pip install safety
-      - 
-        name: Create logs file
-        run: mkdir -p logs/
-      - 
-        name: SCA Analysis
-        run: safety check -r requirements.txt > logs/safety-logs.txt
-      - 
-        name: Upload logs  
-        uses: actions/upload-artifact@v2
-        with:
-          name: logs
-          path: logs/safety-logs.txt
+  # PythonSafety:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - 
+  #       name: Checkout
+  #       uses: actions/checkout@master  
+  #     - 
+  #       name: Install Python
+  #       uses: actions/setup-python@v1
+  #       with:
+  #         python-version: "3.7"
+  #     - 
+  #       name: Install Safety    
+  #       run:
+  #         pip install safety
+  #     - 
+  #       name: Create logs file
+  #       run: mkdir -p logs/
+  #     - 
+  #       name: SCA Analysis
+  #       run: safety check -r requirements.txt > logs/safety-logs.txt
+  #     - 
+  #       name: Upload logs  
+  #       uses: actions/upload-artifact@v2
+  #       with:
+  #         name: logs
+  #         path: logs/safety-logs.txt
