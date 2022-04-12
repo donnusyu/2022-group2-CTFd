@@ -54,7 +54,7 @@ jobs:
         uses: azure/container-scan@v0.1
         with:
           image-name: nginx:latest
-          severity-threshold: UNKNOWN
+          severity-threshold: HIGH
           run-quality-checks: true
           report-format: json
           report-name: dockle-report-nginx
