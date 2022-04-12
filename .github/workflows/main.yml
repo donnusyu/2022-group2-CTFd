@@ -44,16 +44,18 @@ jobs:
         with:
           exclude_path: 'logs/exclude.txt'
 
-  ImageScan:
+  ContainerScan:
     #needs: [test, sast]
     runs-on: ubuntu-latest
  
     steps:
       - 
-        name: Dockle for Nginx
-        uses: erzz/dockle-action@v1.1.1
+        name: Scan for Nginx
+        uses: azure/container-scan@v0.1
         with:
-          image: nginx:1.17
+          image-name: nginx:1.17
+          severity-threshold: UNKNOWN
+          run-quality-checks: true
           report-format: json
           report-name: dockle-report-nginx
       - 
@@ -64,7 +66,7 @@ jobs:
           name: Dockle Report
           path: dockle-report-nginx.json
       - 
-        name: Dockle for MariaDB
+        name: Scan for MariaDB
         uses: erzz/dockle-action@v1.1.1
         with:
           image: mariadb:10.4.12
@@ -78,7 +80,7 @@ jobs:
           name: Dockle Report
           path: dockle-report-mariadb.json
       - 
-        name: Dockle for Redis
+        name: Scan for Redis
         uses: erzz/dockle-action@v1.1.1
         with:
           image: redis:4
