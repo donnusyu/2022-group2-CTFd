@@ -57,13 +57,12 @@ jobs:
           python-version: "3.7"
       - 
         name: Install Safety    
-        run:
-          pip install safety
+        run: pip install safety
       - 
         name: Create logs file
         run: mkdir -p logs/
       - 
-        name: SCA Analysis
+        name: Run Safety Check
         run: safety check -r requirements.txt --full-report -i 40459 -i 42194 > logs/safety-logs.txt
       - 
         name: Upload logs  
@@ -75,12 +74,25 @@ jobs:
   Pyraider:
     runs-on: ubuntu-latest
     steps:
+      -
+        name: Checkout
+        uses: actions/checkout@master 
       - 
-        name: Pyraider
-        run: |
-          pip install pyraider
-          pyraider check -f requirements.txt  
-      -  
+        name: Install Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: "3.7"
+      -
+        name: Install Pyraider
+        run: pip install pyraider  
+      -
+        name: Create logs file
+        run: mkdir -p logs/  
+      -
+        name: Run Pyraider Check
+        run: pyraider check -f requirements.txt -e json pyraider-logs.json
+      -
+        name: Upload logs
         uses: actions/upload-artifact@v2
         with:
           name: logs
