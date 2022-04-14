@@ -90,7 +90,7 @@ jobs:
         run: mkdir -p logs/  
       -
         name: Run Pyraider Check
-        run: pyraider check -f requirements.txt -e json pyraider-logs.json
+        run: pyraider check -f requirements.txt -e json logs/pyraider-logs.json
       -
         name: Upload logs
         uses: actions/upload-artifact@v2
