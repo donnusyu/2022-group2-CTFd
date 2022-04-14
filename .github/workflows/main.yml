@@ -79,7 +79,7 @@ jobs:
         name: Pyraider
         run: |
           pip install pyraider
-          pyraider check -f app/web/requirements.txt  
+          pyraider check -f requirements.txt  
       -  
         uses: actions/upload-artifact@v2
         with:
