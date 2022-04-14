@@ -72,22 +72,18 @@ jobs:
           name: logs
           path: logs/safety-logs.txt
 
-  BanditCheck:
-    needs: [Build, PythonSafety]
+  Pyraider:
     runs-on: ubuntu-latest
     steps:
       - 
-        uses: actions/checkout@v2
-      - 
+        name: Pyraider
         run: |
-          mkdir -p logs/ 
-      - 
-        uses: jpetrucciani/bandit-check@master
-        with:
-          path: '.'
-          bandit_flags: '-lll -o logs/output.json -f json'
-      - 
+          pip install pyraider
+          pyraider check -f app/web/requirements.txt  
+      -  
         uses: actions/upload-artifact@v2
         with:
           name: logs
-          path: logs/output.json
+          path: logs/pyraider-logs.json
+
+  
