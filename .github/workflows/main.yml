@@ -57,13 +57,12 @@ jobs:
           python-version: "3.7"
       - 
         name: Install Safety    
-        run:
-          pip install safety
+        run: pip install safety
       - 
         name: Create logs file
         run: mkdir -p logs/
       - 
-        name: SCA Analysis
+        name: Run Safety Check
         run: safety check -r requirements.txt --full-report -i 40459 -i 42194 > logs/safety-logs.txt
       - 
         name: Upload logs  
@@ -71,6 +70,33 @@ jobs:
         with:
           name: logs
           path: logs/safety-logs.txt
+
+  Pyraider:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@master 
+      - 
+        name: Install Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: "3.7"
+      -
+        name: Install Pyraider
+        run: pip install pyraider  
+      -
+        name: Create logs file
+        run: mkdir -p logs/  
+      -
+        name: Run Pyraider Check
+        run: pyraider check -f requirements.txt -e json logs/pyraider-logs.json
+      -
+        name: Upload logs
+        uses: actions/upload-artifact@v2
+        with:
+          name: logs
+          path: logs/pyraider-logs.json
           
   BanditCheck:
     needs: [Build, PythonSafety]
@@ -91,3 +117,79 @@ jobs:
         with:
           name: logs
           path: logs/output.json
+
+  ContainerScan:
+    #needs: [test, sast]
+    runs-on: ubuntu-latest
+    steps:
+      - 
+        name: Dockle for Nginx
+        uses: erzz/dockle-action@v1.1.1
+        with:
+          image: nginx:1.17
+          report-format: json
+          report-name: dockle-report-nginx
+      - 
+        name: Upload Report
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: Dockle Report
+          path: dockle-report-nginx.json
+      - 
+        name: Dockle for MariaDB
+        uses: erzz/dockle-action@v1.1.1
+        with:
+          image: mariadb:10.4.12
+          report-format: json
+          report-name: dockle-report-mariadb
+      - 
+        name: Upload Report
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: Dockle Report
+          path: dockle-report-mariadb.json
+      - 
+        name: Dockle for Redis
+        uses: erzz/dockle-action@v1.1.1
+        with:
+          image: redis:4
+          report-format: json
+          report-name: dockle-report-redis      
+      - 
+        name: Upload Report
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: Dockle Report
+          path: dockle-report-redis.json     
+
+  deploy:
+    needs: [ContainerScan]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      
+      - name: Login to DockerHub
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: Dockerfile
+          builder: ${{ steps.buildx.outputs.name }}
+          push: true
+          tags: tic4302group2/tic4302-project:latest   
