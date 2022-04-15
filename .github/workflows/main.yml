@@ -177,6 +177,7 @@ jobs:
           format: json
           ignore-unfixed: true
           vuln-type: 'os,library'
+          output: trivy-report-nginx.json
           #severity: 'CRITICAL,HIGH'
       - 
         name: Upload Report
@@ -184,4 +185,4 @@ jobs:
         if: always()
         with:
           name: Trivy Report
-          path: logs/trivy-report-nginx.json
+          path: trivy-report-nginx.json
