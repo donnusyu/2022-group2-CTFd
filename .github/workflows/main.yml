@@ -121,15 +121,12 @@ jobs:
   ContainerScan:
     #needs: [test, sast]
     runs-on: ubuntu-latest
- 
     steps:
       - 
-        name: Scan for Nginx
-        uses: azure/container-scan@v0.1
+        name: Dockle for Nginx
+        uses: erzz/dockle-action@v1.1.1
         with:
-          image-name: nginx:latest
-          severity-threshold: HIGH
-          run-quality-checks: true
+          image: nginx:1.17
           report-format: json
           report-name: dockle-report-nginx
       - 
@@ -140,7 +137,7 @@ jobs:
           name: Dockle Report
           path: dockle-report-nginx.json
       - 
-        name: Scan for MariaDB
+        name: Dockle for MariaDB
         uses: erzz/dockle-action@v1.1.1
         with:
           image: mariadb:10.4.12
@@ -154,7 +151,7 @@ jobs:
           name: Dockle Report
           path: dockle-report-mariadb.json
       - 
-        name: Scan for Redis
+        name: Dockle for Redis
         uses: erzz/dockle-action@v1.1.1
         with:
           image: redis:4
