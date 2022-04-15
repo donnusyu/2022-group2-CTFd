@@ -119,7 +119,7 @@ jobs:
           path: logs/output.json
 
   #need to fix the 'WARN' on creating user for the container
-  ContainerScan:
+  ContainerDockleScan:
     #needs: [test, sast]
     runs-on: ubuntu-latest
     steps:
@@ -166,7 +166,8 @@ jobs:
           name: Dockle Report
           path: dockle-report-redis.json        
 
-  Trivy:
+  ContainerTrivyScan:
+    #needs: [test, sast]
     runs-on: ubuntu-latest
     steps:
       -
