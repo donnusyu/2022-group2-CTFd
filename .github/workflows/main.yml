@@ -165,3 +165,23 @@ jobs:
         with:
           name: Dockle Report
           path: dockle-report-redis.json        
+
+  Trivy:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Trivy for Nginx
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: nginx:1.17
+          format: json
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          #severity: 'CRITICAL,HIGH'
+      - 
+        name: Upload Report
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: Trivy Report
+          path: trivy-report-nginx.json
