@@ -118,6 +118,7 @@ jobs:
           name: logs
           path: logs/output.json
 
+  #need to fix the 'WARN' on creating user for the container
   ContainerScan:
     #needs: [test, sast]
     runs-on: ubuntu-latest
