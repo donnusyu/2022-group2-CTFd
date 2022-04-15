@@ -184,4 +184,4 @@ jobs:
         if: always()
         with:
           name: Trivy Report
-          path: trivy-report-nginx.json
+          path: logs/trivy-report-nginx.json
