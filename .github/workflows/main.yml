@@ -170,19 +170,53 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       -
-        name: Trivy for Nginx
+        name: Trivy Scan for Nginx
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: nginx:latest #nginx:1.17
           format: json
           ignore-unfixed: true
-          vuln-type: 'os,library'
+          vuln-type: os,library
           output: trivy-report-nginx.json
+      - 
+        name: Upload Report
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: Trivy Scan Report
+          path: trivy-report-nginx.json
+      -
+        name: Trivy Scan for MariaDB
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: mariadb:latest #mariadb:10.4.12
+          format: json
+          ignore-unfixed: true
+          vuln-type: os,library
+          output: trivy-report-mariadb.json
           #severity: 'CRITICAL,HIGH'
       - 
         name: Upload Report
         uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: Trivy Report
-          path: trivy-report-nginx.json
+          name: Trivy Scan Report
+          path: trivy-report-mariadb.json
+      -
+        name: Trivy Scan for Redis
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: redis:latest #redis:4
+          format: json
+          ignore-unfixed: true
+          vuln-type: os,library
+          output: trivy-report-redis.json
+          #severity: 'CRITICAL,HIGH'
+      - 
+        name: Upload Report
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: Trivy Scan Report
+          path: trivy-report-redis.json   
+          
