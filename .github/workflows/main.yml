@@ -173,7 +173,7 @@ jobs:
         name: Trivy for Nginx
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: nginx:1.17
+          image-ref: nginx:latest #nginx:1.17
           format: json
           ignore-unfixed: true
           vuln-type: 'os,library'
