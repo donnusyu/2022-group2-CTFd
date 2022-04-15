@@ -3,7 +3,7 @@ name: CTFd Main CI
 
 on:
   push:
-    branches: [sub-DY]
+    branches: [master, sub]
 
 env:
   DEP_PATH: requirements.txt
