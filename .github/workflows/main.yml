@@ -9,16 +9,6 @@ env:
   DEP_PATH: requirements.txt
     
 jobs:
-  Build:
-    runs-on: ubuntu-latest
-    steps:
-      - 
-        name: Checkout
-        uses: actions/checkout@v2
-      - 
-        name: Build docker-compose
-        run: docker-compose -f docker-compose.yml up --build -d
-
   SecretScan:
     runs-on: ubuntu-latest
     steps:
@@ -99,7 +89,6 @@ jobs:
           path: logs/pyraider-logs.json
           
   BanditCheck:
-    needs: [Build, PythonSafety]
     runs-on: ubuntu-latest
     steps:
       - 
@@ -122,8 +111,19 @@ jobs:
           name: logs
           path: logs/output.json
 
+  Build:
+    needs: [SecretScan, PythonSafety, Pyraider, BanditCheck]
+    runs-on: ubuntu-latest
+    steps:
+      - 
+        name: Checkout
+        uses: actions/checkout@v2
+      - 
+        name: Build docker-compose
+        run: docker-compose -f docker-compose.yml up --build -d
+
   ContainerScan:
-    #needs: [test, sast]
+    needs: [Build]
     runs-on: ubuntu-latest
     steps:
       - 
