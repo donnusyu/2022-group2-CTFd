@@ -103,16 +103,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - 
+        name: Checkout
         uses: actions/checkout@v2
       - 
+        name: Create logs file
         run: |
           mkdir -p logs/ 
       - 
+        name: Run Bandit Check
         uses: jpetrucciani/bandit-check@master
         with:
           path: '.'
           bandit_flags: '-lll -o logs/output.json -f json'
       - 
+        name: Upload logs
         uses: actions/upload-artifact@v2
         with:
           name: logs
