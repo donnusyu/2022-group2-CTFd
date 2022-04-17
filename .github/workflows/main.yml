@@ -118,6 +118,9 @@ jobs:
       - 
         name: Checkout
         uses: actions/checkout@v2
+      -
+        name: Install dependencies
+        run: pip install -r requirements.txt
       - 
         name: Build docker-compose
         run: docker-compose -f docker-compose.yml up --build -d
@@ -206,6 +209,9 @@ jobs:
       - 
         name: Checkout
         uses: actions/checkout@v2  
+      -
+        name: Install dependencies
+        run: pip install -r requirements.txt
       - 
         name: Build Image for testing
         run: docker-compose -f docker-compose.yml up --build -d
