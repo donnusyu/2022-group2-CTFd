@@ -74,7 +74,7 @@ jobs:
           python-version: "3.7"
       -
         name: Install Pyraider
-        run: pip install pyraider  
+        run: pip install pyraider==1.0.18  
       -
         name: Create logs file
         run: mkdir -p logs/
