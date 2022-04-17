@@ -74,13 +74,13 @@ jobs:
           python-version: "3.7"
       -
         name: Install Pyraider
-        run: pip install pyraider==1.0.18  
+        run: pip install pyraider
       -
         name: Create logs file
         run: mkdir -p logs/
       -
         name: Update resource database
-        run: pyraider updatedb
+        run: pyraider updatedb -d
       -
         name: Run Pyraider Check
         run: pyraider check -f requirements.txt -e json logs/pyraider-logs.json
