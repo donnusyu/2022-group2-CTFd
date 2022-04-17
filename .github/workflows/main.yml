@@ -77,7 +77,10 @@ jobs:
         run: pip install pyraider  
       -
         name: Create logs file
-        run: mkdir -p logs/  
+        run: mkdir -p logs/
+      -
+        name: Update resource database
+        run: pyraider updatedb
       -
         name: Run Pyraider Check
         run: pyraider check -f requirements.txt -e json logs/pyraider-logs.json
