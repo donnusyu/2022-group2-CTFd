@@ -118,9 +118,6 @@ jobs:
       - 
         name: Checkout
         uses: actions/checkout@v2
-      -
-        name: Install dependencies
-        run: pip install -r requirements.txt
       - 
         name: Build docker-compose
         run: docker-compose -f docker-compose.yml up --build -d
@@ -201,25 +198,3 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           push: true
           tags: tic4302group2/tic4302-project:latest
-
-  ZAP:
-    needs: [Deployment]
-    runs-on: ubuntu-latest
-    steps:
-      - 
-        name: Checkout
-        uses: actions/checkout@v2  
-      -
-        name: Install dependencies
-        run: pip install -r requirements.txt
-      - 
-        name: Build Image for testing
-        run: docker-compose -f docker-compose.yml up --build -d
-      - 
-        name: ZAP Scan
-        uses: zaproxy/action-baseline@v0.6.1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          docker_name: 'owasp/zap2docker-stable'
-          target: 'http://localhost:8000'
-          cmd_options: '-a' 
