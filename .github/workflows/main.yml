@@ -112,7 +112,7 @@ jobs:
           path: logs/output.json
 
   Build:
-    needs: [SecretScan, PythonSafety, Pyraider, BanditCheck]
+    #needs: [SecretScan, PythonSafety, Pyraider, BanditCheck]
     runs-on: ubuntu-latest
     steps:
       - 
@@ -123,7 +123,7 @@ jobs:
         run: docker-compose -f docker-compose.yml up --build -d
 
   ContainerScan:
-    needs: [Build]
+    #needs: [Build]
     runs-on: ubuntu-latest
     steps:
       - 
@@ -170,7 +170,7 @@ jobs:
           path: dockle-report-redis.json        
 
   Deployment:
-    needs: [ContainerScan]
+    #needs: [ContainerScan]
     runs-on: ubuntu-latest
     steps:
       -  
