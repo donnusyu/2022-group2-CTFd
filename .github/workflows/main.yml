@@ -61,35 +61,35 @@ jobs:
           name: logs
           path: logs/safety-logs.txt
 
-  # Pyraider:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     -
-  #       name: Checkout
-  #       uses: actions/checkout@master 
-  #     - 
-  #       name: Install Python
-  #       uses: actions/setup-python@v1
-  #       with:
-  #         python-version: "3.7"
-  #     -
-  #       name: Install Pyraider
-  #       run: pip install pyraider
-  #     -
-  #       name: Create logs file
-  #       run: mkdir -p logs/
-  #     -
-  #       name: Update resource database
-  #       run: pyraider updatedb -d
-  #     -
-  #       name: Run Pyraider Check
-  #       run: pyraider check -f requirements.txt -e json logs/pyraider-logs.json
-  #     -
-  #       name: Upload logs
-  #       uses: actions/upload-artifact@v2
-  #       with:
-  #         name: logs
-  #         path: logs/pyraider-logs.json
+  Pyraider:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@master 
+      - 
+        name: Install Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: "3.7"
+      -
+        name: Install Pyraider
+        run: pip install pyraider
+      -
+        name: Create logs file
+        run: mkdir -p logs/
+      -
+        name: Update resource database
+        run: pyraider updatedb -d
+      -
+        name: Run Pyraider Check
+        run: pyraider check -f requirements.txt -e json logs/pyraider-logs.json
+      -
+        name: Upload logs
+        uses: actions/upload-artifact@v2
+        with:
+          name: logs
+          path: logs/pyraider-logs.json
           
   BanditCheck:
     runs-on: ubuntu-latest
